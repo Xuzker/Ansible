@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Run Ansible Playbook') {
             steps {
-                sh 'ansible-playbook JenkinsAnsible/playbook.yml'
+                sh 'ansible-playbook JenkinsAnsible/playbook.yml -i JenkinsAnsible/inventory.ini'
             }
         }
     }
