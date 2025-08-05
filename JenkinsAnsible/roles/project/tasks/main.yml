@@ -1,0 +1,20 @@
+---
+- name: Ensure nginx is installed
+  apt:
+    name: nginx
+    state: present
+  become: yes
+
+- name: Copy html file
+  copy:
+    src: index.html.j2
+    dest: "{{ default_html_path }}"
+  notify: restart nginx
+  when: not use_custom_template
+
+- name: Template config file
+  template:
+    src: config.j2
+    dest: "{{ default_config_path }}"
+  when: use_custom_template
+  notify: restart nginx
